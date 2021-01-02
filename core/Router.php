@@ -1,11 +1,14 @@
 <?php
-namespace core;
+namespace app\core;
+
+use Exception;
+
 class Router {
     static array $routes = [
         "get" => [],
         "post" => [],
     ];
-    
+
     static function get($endpoint, $task) {
         array_push(
             self::$routes["get"] ,["endpoint" => $endpoint, "task" => $task]
@@ -22,21 +25,31 @@ class Router {
         $method = self::getMethod();
         $endpoint = self::getEndPoint();
         $routes = self::$routes[$method];
-        for ($i=0; $i < count($routes); $i++) { 
-            if($routes[$i]["endpoint"] === $endpoint) {
-                $filename = $routes[$i]['task'][0];
-                $method = $routes[$i]['task'][1];
-                if(class_exists($filename)) {
-                    $obj = new $filename;
-                    if(count($_POST) == 0) {
-                        $params = $_GET;
-                        call_user_func_array([$obj,$method],array($params));
-                    } else {
-                        $object = (object) $_POST;
-                        call_user_func_array([$obj,$method],[$object]);
-                    }
-                }
+        $item = null;
+        $exist = false;
+       foreach ($routes as $route) {
+            if(array_search($endpoint, $route)) {
+                $exist = true;
+                $item = $route;
             }
+       }
+       if($exist) {
+               $filename = $item['task'][0];
+               $method = $item['task'][1];
+               if(class_exists($filename)) {
+                   $obj = new $filename;
+                   if(count($_POST) == 0) {
+                       $params = $_GET;
+                       call_user_func_array([$obj,$method],array($params));
+                   } else {
+                       $object = (object) $_POST;
+                       call_user_func_array([$obj,$method],[$object]);
+                   }
+               }
+       } else {
+            var_dump(
+                (object) ["status" => 404, "message" => "Page Not Found"]
+            );
         }
     }
 

@@ -1,6 +1,9 @@
 <?php
 namespace app\controllers;
 use app\controllers\Controller;
+use app\core\Request;
+use app\exception\ValidationException;
+
 class HomeController extends Controller{
     // Controller RULE  
     // public function nameFunction($params = [])
@@ -13,6 +16,13 @@ class HomeController extends Controller{
     }
 
     public function posting($request) {
-        var_dump($request->nama);
+        try {
+            Request::validate([
+                "nama" => ["required", "max:5"],
+                "alamat" => ["required"]
+            ],$request);
+        } catch (ValidationException $exception) {
+            var_dump($exception->getMessage());            
+        }
     }
 }

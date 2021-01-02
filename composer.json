@@ -1,0 +1,15 @@
+{
+    "name": "alfarizzi/bird",
+    "authors": [
+        {
+            "name": "Muhammad Al Farizzi",
+            "email": "muhammadalfarizzi563@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\" : "./"
+        }
+    },
+    "require": {}
+}
