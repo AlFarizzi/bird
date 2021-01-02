@@ -1,0 +1,10 @@
+#!/usr/bin/php
+<?php
+require "command/commands.php";
+use app\command\Commands;
+if(php_sapi_name() !== "cli") {
+    exit;
+}
+
+$app = new Commands();
+$app->run($argv);
