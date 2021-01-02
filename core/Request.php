@@ -2,7 +2,7 @@
 namespace app\core;
 
 use app\exception\ValidationException;
-
+use app\core\Connection;
 class Request {
     static array $errors = [];
     static function validate($rules, $request) {
@@ -27,5 +27,18 @@ class Request {
                 } 
             }
         }
+    }
+
+    static function getErrors() {
+        if(isset($_COOKIE["Errors"])) {
+            return $_COOKIE["Errors"];
+        }
+    }
+
+    static function create($data,$table) {
+        $con = new Connection();
+        $db = $con->connection();
+        $stmt = $db->prepare("INSERT INTO Sma VALUES(null, 'asd')");
+    $stmt->execute();
     }
 }
