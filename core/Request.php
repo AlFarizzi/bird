@@ -1,8 +1,12 @@
 <?php
 namespace app\core;
 
-use app\exception\ValidationException;
+use PDO;
+use Exception;
 use app\core\Connection;
+use app\exception\ValidationException;
+use PDOException;
+
 class Request {
     static array $errors = [];
     static function validate($rules, $request) {
@@ -35,10 +39,42 @@ class Request {
         }
     }
 
+    static function buildInsertQuery($data,$table) {
+        $query = "INSERT INTO $table (`id`, ";
+        foreach ($data as $key => $item) {
+            $query .= "`$key`,";
+        }
+        $query .= ")";
+        $query = explode(",)",$query)[0].')';
+        $query .= " VALUES (:id, ";
+        foreach ($data as $key => $item) {
+            $query .= ":$key,";
+        }
+        $query .= ")";
+        $query = explode(",)",$query)[0].')';
+        return $query;
+    }
+
+    static function buildExecuteArray($data) {
+        $exec = ["id" => null];
+        foreach ($data as $key => $item) {
+            $exec[$key] = $item;
+        }
+        return $exec;
+    }
+
     static function create($data,$table) {
-        $con = new Connection();
-        $db = $con->connection();
-        $stmt = $db->prepare("INSERT INTO Sma VALUES(null, 'asd')");
-    $stmt->execute();
+        try {
+            $con = new Connection();
+            $db = $con->connection();
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $query = Request::buildInsertQuery($data,$table);
+            $exec = Request::buildExecuteArray($data);
+            $stmt = $db->prepare($query);
+            $stmt->execute($exec);
+            header("Location:".$_SERVER["HTTP_REFERER"]);
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
+        }
     }
 }

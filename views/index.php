@@ -8,6 +8,7 @@
 <body>
     <form action="/post" method="post">
         <input type="text" name="nama" id="">
+        <input type="text" name="alamat" id="">
         <button type="submit">tekan</button>
     </form>
 </body>

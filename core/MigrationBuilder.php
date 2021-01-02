@@ -26,6 +26,7 @@ class MigrationBuilder {
 
 
     public function execute($query) {
+        // var_dump($query);
         $con = new Connection();
         $db = $con->connection();
         $stmt = $db->prepare($query);

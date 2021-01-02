@@ -18,8 +18,9 @@ class HomeController extends Controller{
         try {
             Request::validate([
                 "nama" => ["required"],
+                "alamat" => ["min:2"]
             ],$params);
-            Request::create($params,"Sma");
+            Request::create($params,"siswa");
         } catch (ValidationException $exception) {
             $this->handler($exception->getMessage());            
         }
