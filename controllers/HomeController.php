@@ -11,7 +11,8 @@ class HomeController extends Controller{
     // public function nameFunction($params = [])
     
     public function index($params = []) {
-        $this->view("index");
+        $data = Request::get("siswa",["alamat"]);
+        $this->view("index",$data);
     }
 
     public function post($params = [] ) {

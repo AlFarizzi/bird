@@ -9,6 +9,7 @@ use PDOException;
 
 class Request {
     static array $errors = [];
+
     static function validate($rules, $request) {
         foreach ($rules as $key => $rule) {
             foreach ($rules[$key] as $key2 => $item) {
@@ -39,14 +40,21 @@ class Request {
         }
     }
 
-    static function buildInsertQuery($data,$table) {
+    /**
+     * buildInsertQuery
+     *
+     * @param  array $data
+     * @param   string $table
+     * @return string
+     */
+    static function buildInsertQuery(array $data,string $table) {
         $query = "INSERT INTO $table (`id`, ";
         foreach ($data as $key => $item) {
             $query .= "`$key`,";
         }
         $query .= ")";
         $query = explode(",)",$query)[0].')';
-        $query .= " VALUES (:id, ";
+        $query .= " VALUES (null, ";
         foreach ($data as $key => $item) {
             $query .= ":$key,";
         }
@@ -54,16 +62,28 @@ class Request {
         $query = explode(",)",$query)[0].')';
         return $query;
     }
-
-    static function buildExecuteArray($data) {
-        $exec = ["id" => null];
+    
+    /**
+     * buildExecuteArray
+     *
+     * @param  array $data
+     * @return array
+     */
+    static function buildExecuteArray(array $data) {
         foreach ($data as $key => $item) {
             $exec[$key] = $item;
         }
         return $exec;
     }
-
-    static function create($data,$table) {
+    
+    /**
+     * create
+     *
+     * @param  array $data
+     * @param  string $table
+     * @return void
+     */
+    static function create(array $data,string $table) {
         try {
             $con = new Connection();
             $db = $con->connection();
@@ -76,5 +96,48 @@ class Request {
         } catch (PDOException $e) {
             var_dump($e->getMessage());
         }
+    }
+    
+    /**
+     * buildGetQuery
+     *
+     * @param  array $params
+     * @return string
+     */
+    static function buildGetQuery(string $table,array $params) {
+        if(count($params) === 0) {
+            return "SELECT * FROM $table";
+        } else {
+            $query = "SELECT id, ";
+            for ($i=0; $i < count($params); $i++) { 
+                if($i === count($params) - 1) {
+                    $query .= "$params[$i] ";
+                } else {
+                    $query .= "$params[$i], ";
+                }
+            }
+            $query .= "FROM $table";
+            return $query;
+        }
+    }
+
+    static function get(string $table,array $fields = []) {
+        try {
+            //code...
+            $result = [];
+            $conn = new Connection();
+            $db = $conn->connection();
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $query = static::buildGetQuery($table,$fields);
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                $result [] = $row; 
+            }
+            return $result;
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
+        }
+        
     }
 }

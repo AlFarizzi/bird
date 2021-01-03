@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
+<?php
+    foreach ($data as $key => $value) {
+        echo "<p>$value->id, $value->nama,, $value->alamat</p>";
+    }
+
+?>
     <form action="/post" method="post">
         <input type="text" name="nama" id="">
         <input type="text" name="alamat" id="">
