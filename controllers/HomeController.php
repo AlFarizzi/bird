@@ -12,6 +12,7 @@ class HomeController extends Controller{
     
     public function index($params = []) {
         $data = Request::where("siswa",["nama", "=", "Consectetur voluptat", "alamat", "=", "samsul"]);
+        Request::delete("siswa",$data);
         $this->view("index");
     }
 

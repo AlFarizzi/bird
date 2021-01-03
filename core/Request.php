@@ -151,4 +151,20 @@ class Request {
             var_dump($e->getMessage());
         }
     }
+
+
+    static function delete(string $table, $data) {
+        try {
+            $conn = new Connection();
+            $db = $conn->connection();
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $query = "DELETE FROM $table WHERE id = :id";
+            $stmt = $db->prepare($query);
+            $stmt->execute([
+                "id" => $data[0]->id
+            ]);
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
+        }
+    }
 }
