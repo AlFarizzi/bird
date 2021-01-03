@@ -8,7 +8,8 @@ use app\exception\ValidationException;
 use PDOException;
 
 class Request {
-    static array $errors = [];
+    static array $errors = [];    
+   
     static function validate($rules, $request) {
         foreach ($rules as $key => $rule) {
             foreach ($rules[$key] as $key2 => $item) {
@@ -151,7 +152,6 @@ class Request {
             var_dump($e->getMessage());
         }
     }
-
 
     static function delete(string $table, $data) {
         try {
