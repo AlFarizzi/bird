@@ -2,7 +2,9 @@
 namespace app\controllers;
 
 use app\core\Router;
-
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable('../');
+$dotenv->load();
 class Controller {
     public function view(string $view, $data = []) {
         $errors = $this->getErrors();

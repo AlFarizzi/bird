@@ -1,14 +1,17 @@
 <?php
 namespace app\core;
-require 'config.php';
+use app\controllers\Controller;
 use PDO;
 
-class Connection {
-    public function connection(
-        string $dbname = DB_NAME,string $username = USERNAME, 
-        string $password = PASSWORD
-        ) {
-        $dsn="mysql:host=".HOST.";port=".PORT.";dbname=".$dbname.";charset=".CHARSET;
+class Connection extends Controller{
+    public function connection() {
+        $dbname = $_ENV["DBNAME"];
+        $host = $_ENV["HOST"];
+        $post = $_ENV["PORT"];
+        $charset = $_ENV["CHARSET"];
+        $username = $_ENV["USERNAME"];
+        $password = $_ENV["PASSWORD"];
+        $dsn="mysql:host=".$host.";port=".$post.";dbname=".$dbname.";charset=".$charset;
         $db = new PDO($dsn,$username,$password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
        return $db;
