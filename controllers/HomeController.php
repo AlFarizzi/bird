@@ -11,8 +11,8 @@ class HomeController extends Controller{
     // public function nameFunction($params = [])
     
     public function index($params = []) {
-        $data = Request::get("siswa",["alamat"]);
-        $this->view("index",$data);
+        $data = Request::where("siswa",["nama", "=", "Consectetur voluptat", "alamat", "=", "samsul"]);
+        $this->view("index");
     }
 
     public function post($params = [] ) {

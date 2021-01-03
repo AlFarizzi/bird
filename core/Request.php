@@ -9,7 +9,6 @@ use PDOException;
 
 class Request {
     static array $errors = [];
-
     static function validate($rules, $request) {
         foreach ($rules as $key => $rule) {
             foreach ($rules[$key] as $key2 => $item) {
@@ -40,14 +39,7 @@ class Request {
         }
     }
 
-    /**
-     * buildInsertQuery
-     *
-     * @param  array $data
-     * @param   string $table
-     * @return string
-     */
-    static function buildInsertQuery(array $data,string $table) {
+    static function buildInsertQuery($data,$table) {
         $query = "INSERT INTO $table (`id`, ";
         foreach ($data as $key => $item) {
             $query .= "`$key`,";
@@ -62,28 +54,15 @@ class Request {
         $query = explode(",)",$query)[0].')';
         return $query;
     }
-    
-    /**
-     * buildExecuteArray
-     *
-     * @param  array $data
-     * @return array
-     */
-    static function buildExecuteArray(array $data) {
+
+    static function buildExecuteArray($data) {
         foreach ($data as $key => $item) {
             $exec[$key] = $item;
         }
         return $exec;
     }
-    
-    /**
-     * create
-     *
-     * @param  array $data
-     * @param  string $table
-     * @return void
-     */
-    static function create(array $data,string $table) {
+
+    static function create($data,$table) {
         try {
             $con = new Connection();
             $db = $con->connection();
@@ -97,13 +76,7 @@ class Request {
             var_dump($e->getMessage());
         }
     }
-    
-    /**
-     * buildGetQuery
-     *
-     * @param  array $params
-     * @return string
-     */
+
     static function buildGetQuery(string $table,array $params) {
         if(count($params) === 0) {
             return "SELECT * FROM $table";
@@ -139,5 +112,43 @@ class Request {
             var_dump($e->getMessage());
         }
         
+    }
+
+    static function buildWhereQuery(string $query,array $selector) {
+        if(count($selector) > 3 && count($selector) % 3 === 0) {
+            $query .= " WHERE "; 
+            for ($i=0; $i < count($selector); $i++) { 
+                $query .= " $selector[0] $selector[1] '$selector[2]'";
+                    for ($j=0; $j < 3; $j++) { 
+                        array_shift($selector);
+                    }
+                if($i < count($selector)) {
+                    $query .= " AND  ";
+                }
+            }
+            return $query;
+        } else {
+            $query .= " WHERE $selector[0] $selector[1] '$selector[2]' ";
+            return $query;
+        }
+    }
+
+    static function where(string $table, array $selector, array $fields = []) {
+        try {
+            $result = [];
+            $conn = new Connection();
+            $db = $conn->connection();
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $query = Request::buildGetQuery($table,$fields);
+            $query = Request::buildWhereQuery($query, $selector);
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                $result [] = $row;
+            }
+            return $result;
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
+        }
     }
 }
