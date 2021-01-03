@@ -13,8 +13,10 @@
 
 ?>
     <form action="/post" method="post">
-        <input type="text" name="nama" id="">
-        <input type="text" name="alamat" id="">
+        <input type="text" name="name" id="">
+        <input type="email" name="email" id="">
+        <input type="password" name="password" id="">
+
         <button type="submit">tekan</button>
     </form>
 </body>

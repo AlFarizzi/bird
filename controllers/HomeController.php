@@ -1,29 +1,28 @@
 <?php
 namespace app\controllers;
-use app\controllers\Controller;
+use app\model\User;
 use app\core\Request;
-use app\exception\ValidationException;
-use app\core\Connection;
-use app\core\Router;
+use app\controllers\Controller;
 
 class HomeController extends Controller{
     // Controller RULE  
     // public function nameFunction($params = [])
     
     public function index($params = []) {
-        $data = Request::where("siswa",["nama", "=", "Consectetur voluptat", "alamat", "=", "samsul"]);
+        $data = User::get()->toArray();
+            var_dump($data);
         $this->view("index");
     }
 
     public function post($params = [] ) {
         try {
-            Request::validate([
-                "nama" => ["required"],
-                "alamat" => ["min:2"]
-            ],$params);
-            Request::create($params,"siswa");
-        } catch (ValidationException $exception) {
-            $this->handler($exception->getMessage());            
+            $a = User::create([
+                "name" => $params->name,
+                "email" => $params->email,
+                "password" => $params->password,
+            ]);
+        } catch (\Throwable $th) {
+            $this->handler($th->getMessage());
         }
     }
 
