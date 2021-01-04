@@ -1,6 +1,5 @@
 <?php
 require 'Router.php';
-require 'Request.php';
 require '../vendor/autoload.php';
 require '../Router/web.php';
 // require '../app/exception/ValidationException.php';

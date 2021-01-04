@@ -17,15 +17,17 @@ class Controller {
     private $cache = "../cache";
     public function view(string $view, $data = []) {
         $blade = new BladeOne($this->views,$this->cache,BladeOne::MODE_DEBUG);
-        echo $blade->run($view, $data);
+        echo $blade->run($view, ["data" => $data]);
     }
-    public function handler($message) {
-        setcookie("Errors", $message, time() + 1);
-        header("Location:".$_SERVER["HTTP_REFERER"]);
+
+    public function back(?string $url = null) {
+        if(is_null($url)) {
+            header("Location:".$_SERVER["HTTP_REFERER"]);
+        } else {
+            header("Location: $url");
+        }
     }
-    public function getErrors() {
-        return $_COOKIE["Errors"];
-    }
+
 }
 
 ?>

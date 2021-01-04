@@ -8,5 +8,14 @@
 </head>
 <body>
     <h1>Hai</h1>
+    <form action="/post" method="post">
+        <input type="text" name="name" id="">
+        <input type="text" name="email" id="">
+        <input type="text" name="password" id="">
+        <button type="submit">Send</button>
+    </form>
+    @foreach ($data as $item)
+        <p>{{$item->name}}</p>
+    @endforeach
 </body>
 </html>

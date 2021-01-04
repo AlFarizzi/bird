@@ -42,8 +42,7 @@ class Router {
                        $params = $_GET;
                        call_user_func_array([$obj,$method],array($params));
                    } else {
-                       $object = (object) $_POST;
-                       call_user_func_array([$obj,$method],[$object]);
+                       call_user_func_array([$obj,$method],[$_POST]);
                    }
                }
        } else {

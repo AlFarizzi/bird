@@ -17,6 +17,7 @@
     "require": {
         "vlucas/phpdotenv": "^5.2",
         "illuminate/database": "^8.20",
-        "eftec/bladeone": "^3.47"
+        "eftec/bladeone": "^3.47",
+        "dsheiko/validate": "^1.1"
     }
 }

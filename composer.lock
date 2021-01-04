@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f42d8cf6fbd42623efcc61f4e9ef3454",
+    "content-hash": "20c11e541c45ec0f701f08c9aea79167",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -96,6 +96,55 @@
                 }
             ],
             "time": "2020-05-29T15:13:26+00:00"
+        },
+        {
+            "name": "dsheiko/validate",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dsheiko/validate.git",
+                "reference": "15b233a626ece0b750c9360c9f97b849a3687ade"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dsheiko/validate/zipball/15b233a626ece0b750c9360c9f97b849a3687ade",
+                "reference": "15b233a626ece0b750c9360c9f97b849a3687ade",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "peridot-php/leo": "^1.6",
+                "peridot-php/peridot": "^1.19",
+                "peridot-php/peridot-code-coverage-reporters": "^3.0",
+                "squizlabs/php_codesniffer": "^3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dsheiko\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Sheiko",
+                    "homepage": "http://dsheiko.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Validation library for testing primitive and complex types against a contract",
+            "keywords": [
+                "dbc",
+                "library",
+                "validate",
+                "validation"
+            ],
+            "time": "2018-02-07T14:47:13+00:00"
         },
         {
             "name": "eftec/bladeone",

@@ -1,7 +1,7 @@
 <?php
 namespace app\controllers;
 use app\model\User;
-use app\core\Request;
+use \Dsheiko\Validate;
 use app\controllers\Controller;
 class HomeController extends Controller{
     // Controller RULE  

@@ -1,7 +1,7 @@
 <?php
 namespace app\controllers;
 use app\model\User;
-use app\core\Request;
+use \Dsheiko\Validate;
 use app\controllers\Controller;
 
 class HomeController extends Controller{
@@ -9,21 +9,29 @@ class HomeController extends Controller{
     // public function nameFunction($params = [])
     
     public function index($params = []) {
+        //get data 
         $data = User::get();
-        $this->view("index");
+        // pass data to user
+        $this->view("index", $data);
     }
 
-    public function post($params = [] ) {
+    public function post($params = []) {
+        // validation
         try {
-            User::create([
-                "name" => $params->name,
-                "email" => $params->email,
-                "password" => $params->password,
-            ]);
-            $this->view("index");
+           Validate::map($params, [
+               "name" => ["mandatory", "notEmpty"],
+               "email" => ["mandatory", "notEmpty", "IsEmailAddress"]
+           ]);
+           // create
+           User::create([
+               "name" => $params["name"],
+               "email" => $params["email"],
+               "password" => password_hash($params["password"], PASSWORD_DEFAULT)
+           ]);
+           $this->back();
         } catch (\Throwable $th) {
-            var_dump($th);
+            echo $th->getMessage();
         }
     }
-
+   
 }
