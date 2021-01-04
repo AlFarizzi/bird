@@ -9,20 +9,20 @@ class HomeController extends Controller{
     // public function nameFunction($params = [])
     
     public function index($params = []) {
-        $data = User::get()->toArray();
-            var_dump($data);
+        $data = User::get();
         $this->view("index");
     }
 
     public function post($params = [] ) {
         try {
-            $a = User::create([
+            User::create([
                 "name" => $params->name,
                 "email" => $params->email,
                 "password" => $params->password,
             ]);
+            $this->view("index");
         } catch (\Throwable $th) {
-            $this->handler($th->getMessage());
+            var_dump($th);
         }
     }
 

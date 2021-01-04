@@ -3,7 +3,6 @@ namespace app\core;
 
 use PDO;
 use Exception;
-use app\core\Connection;
 use app\exception\ValidationException;
 use PDOException;
 

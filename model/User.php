@@ -13,7 +13,7 @@ class User extends Model
   protected $table = "users";
 
    protected $fillable = [
-       'name', 'email', 'password','userimage'
+       'name', 'email', 'password'
    ];
    /**
    * The attributes that should be hidden for arrays.

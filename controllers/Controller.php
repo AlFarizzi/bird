@@ -3,10 +3,9 @@ namespace app\controllers;
 
 use app\core\Router;
 use Dotenv\Dotenv;
+use eftec\bladeone\BladeOne;
 $dotenv = Dotenv::createImmutable('../');
-if(!$dotenv) {
-    $dotenv = Dotenv::createImmutable('../../');
-}
+
 if(file_exists("../.env")) {
     $dotenv = Dotenv::createImmutable('../');
 } else {
@@ -14,9 +13,11 @@ if(file_exists("../.env")) {
 }
 $dotenv->load();
 class Controller {
+    private $views = "../views";
+    private $cache = "../cache";
     public function view(string $view, $data = []) {
-        $errors = $this->getErrors();
-        include '../views/'.$view.'.php';
+        $blade = new BladeOne($this->views,$this->cache,BladeOne::MODE_DEBUG);
+        echo $blade->run($view, $data);
     }
     public function handler($message) {
         setcookie("Errors", $message, time() + 1);
