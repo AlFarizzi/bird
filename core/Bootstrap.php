@@ -1,6 +1,6 @@
 <?php
-namespace app\core;
-use app\controllers\Controller;
+namespace  Fariz\bird\core;
+use  Fariz\bird\app\controllers\Controller;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Boot extends Controller{

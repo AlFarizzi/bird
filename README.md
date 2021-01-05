@@ -48,11 +48,11 @@ You can customize this file according to your needs
 
 ```PHP
 <?php
-namespace app\controllers;
-use app\controllers\Controller;
-use app\core\Request;
-use app\exception\ValidationException;
-use app\core\Connection;
+namespace  Fariz\bird\app\controllers;
+use  Fariz\bird\app\controllers\Controller;
+use  Fariz\bird\app\core\Request;
+use  Fariz\bird\app\exception\ValidationException;
+use  Fariz\bird\app\core\Connection;
 
 // $params variable must be passed as a parameter to each method
 

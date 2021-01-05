@@ -1,8 +1,8 @@
 <?php
-namespace app\controllers;
-use app\model\User;
+namespace  Fariz\bird\app\controllers;
+use  Fariz\bird\app\model\User;
 use \Dsheiko\Validate;
-use app\controllers\Controller;
+use  Fariz\bird\app\controllers\Controller;
 
 class HomeController extends Controller{
     // Controller RULE  

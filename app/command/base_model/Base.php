@@ -1,5 +1,5 @@
 <?php
-namespace app\model;
+namespace  Fariz\bird\app\model;
 require '../core/Bootstrap.php';
 use Illuminate\Database\Eloquent\Model as Model;
 

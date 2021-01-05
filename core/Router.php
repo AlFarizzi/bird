@@ -1,5 +1,5 @@
 <?php
-namespace app\core;
+namespace  Fariz\bird\core;
 
 use Exception;
 

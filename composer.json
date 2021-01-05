@@ -8,10 +8,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "app\\" : "./"
+            "Fariz\\bird\\app\\" : "./app",
+            "Fariz\\bird\\database\\" : "./database",
+            "Fariz\\bird\\core\\" : "./core"
         },
         "classmap": [
-            "model"
+            "./app/model"
         ]
     },
     "require": {

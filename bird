@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
-require "command/commands.php";
-use app\command\Commands;
+require "app/command/commands.php";
+use  Fariz\bird\app\command\Commands;
 if(php_sapi_name() !== "cli") {
     exit;
 }

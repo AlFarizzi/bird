@@ -1,10 +1,9 @@
 <?php
-namespace app\controllers;
+namespace  Fariz\bird\app\controllers;
 
-use app\core\Router;
+use  Fariz\bird\app\core\Router;
 use Dotenv\Dotenv;
 use eftec\bladeone\BladeOne;
-$dotenv = Dotenv::createImmutable('../');
 
 if(file_exists("../.env")) {
     $dotenv = Dotenv::createImmutable('../');
@@ -14,7 +13,7 @@ if(file_exists("../.env")) {
 $dotenv->load();
 class Controller {
     private $views = "../views";
-    private $cache = "../cache";
+    private $cache = "../app/cache";
     public function view(string $view, $data = []) {
         $blade = new BladeOne($this->views,$this->cache,BladeOne::MODE_DEBUG);
         echo $blade->run($view, ["data" => $data]);
